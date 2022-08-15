@@ -56,7 +56,8 @@ void loop() {
       charge = 0;
       Serial.println("disconnet");
     }
-  } else if (current < 0.01 && Vo > 0.01) {
+  } 
+ if (current < 0.01 && Vo > 0.01) {
     if (full != 1) {
       //sound 3 beep
       digitalWrite(buzzerPin, HIGH);
@@ -79,7 +80,8 @@ void loop() {
       charge = 0;
       Serial.println("full Charge");
     }
-  } else if (current > 0.01 && Vo > 0.01) {
+  } 
+ if (current > 0.01 && Vo > 0.01) {
     if (charge != 1) {
       //sound 1 beep
       digitalWrite(buzzerPin, HIGH);
