@@ -2,6 +2,7 @@ int charge;
 int full;
 int disconnet;
 int buzzerPin = 10;
+int pirSensorPin = 2;
 int crg = 5;
 int dis = 6;
 int ful = 7;
@@ -15,6 +16,7 @@ void setup() {
   pinMode(crg, OUTPUT);
   pinMode(dis, OUTPUT);
   pinMode(ful, OUTPUT);
+  pinMode(pirSensorPin, INPUT);
 }
 
 void loop() {
@@ -56,8 +58,24 @@ void loop() {
       charge = 0;
       Serial.println("disconnet");
     }
-  } 
- if (current < 0.01 && Vo > 0.01) {
+  }
+  if (current < 0.01 && Vo > 0.01) {
+    //Motion notification
+    if (digitalRead(pirSensorPin) == HIGH) {
+      Serial.println("Motion Active");
+      //sound 3 beep
+      digitalWrite(buzzerPin, HIGH);
+      delay(1000);
+      digitalWrite(buzzerPin, LOW);
+      delay(1000);
+      digitalWrite(buzzerPin, HIGH);
+      delay(1000);
+      digitalWrite(buzzerPin, LOW);
+      delay(1000);
+      digitalWrite(buzzerPin, HIGH);
+      delay(1000);
+      digitalWrite(buzzerPin, LOW);
+    }
     if (full != 1) {
       //sound 3 beep
       digitalWrite(buzzerPin, HIGH);
@@ -80,8 +98,8 @@ void loop() {
       charge = 0;
       Serial.println("full Charge");
     }
-  } 
- if (current > 0.01 && Vo > 0.01) {
+  }
+  if (current > 0.01 && Vo > 0.01) {
     if (charge != 1) {
       //sound 1 beep
       digitalWrite(buzzerPin, HIGH);
